@@ -1,2 +1,2 @@
 # EPL_DashBoard
-EPL 데이터 통계 및 분석
+Streamlit을 활용한 EPL 데이터 통계 시각화
