@@ -4,16 +4,24 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 
-winner_team = pd.read_csv('data/winner_list.csv')
-play_df = pd.read_csv('data/preprocess_data.csv')
+winner_team = pd.read_csv('winner_list_2.csv')
+play_df = pd.read_csv('preprocess_data_2.csv')
+
+play_df['HSA'] = (play_df['HST'] / play_df['HS']) * 100   # 유효슈팅 / 전체 슈팅 -> 슛 정확도 (Home)
+play_df['HGSR'] = (play_df['FTHG'] / play_df['HST']) * 100  # 득점 / 유효 슈팅 -> 득점 성공률 (Home)
+
+play_df['ASA'] = (play_df['AST'] / play_df['AS']) * 100  # 유효슈팅 / 전체 슈팅 -> 슛 정확도 (Away)
+play_df['AGSR'] = (play_df['FTAG'] / play_df['AST']) * 100  # 득점 / 유효 슈팅 -> 득점 성공률 (Away)
+
 
 home_columns = {
 'Season' : 'Match Season',
-'HomeTeam' : 'Home Team','AwayTeam' : 'Away Team',
+'HomeTeam' : 'Home Team', 'AwayTeam' : 'Away Team',
 'FTHG' : 'Full Time Home Team Goals',
-'HTHG' : 'Half Time Home Team Goals',
 'HS' : 'Home Team Shots',
-'HST' : 'Home Team Shots on Target',
+'HST' : 'Home Team Shots on Target', 
+'HSA' : 'Home Team Shots Accuracy(%)',
+'HGSR' : 'Home Team Goal Seccess Rate(%)',
 'HC' : 'Home Team Corners',
 'HF' : 'Home Team Fouls Committed',
 'HY' : 'Home Team Yellow Cards',
@@ -25,9 +33,10 @@ away_columns = {
 'Season' : 'Match Season',
 'HomeTeam' : 'Home Team','AwayTeam' : 'Away Team',
 'FTAG' :'Full Time Away Team Goals',
-'HTAG' : 'Half Time Away Team Goals',
 'AS' : 'Away Team Shots',
 'AST' : 'Away Team Shots on Target',
+'ASA' : 'Away Team Shots Accuracy(%)', 
+'AGSR' : 'Away Team Goal Seccess Rate(%)',
 'AC' : 'Away Team Corners',
 'AF' : 'Away Team Fouls Committed',
 'AY' : 'Away Team Yellow Cards',
@@ -41,9 +50,9 @@ st.divider()
 
 with st.sidebar:
     st.header("필터")
-    st.sidebar.divider()
+    # st.sidebar.divider()
     season_list = winner_team['Season']
-    st.sidebar.subheader("01.우승자 조회")
+    st.sidebar.subheader("01.우승팀 조회")
     selected_season = st.selectbox("시즌 선택", season_list)
 
 winner_name = winner_team[winner_team['Season'] == selected_season]['Winner'].iloc[0]
@@ -54,7 +63,7 @@ st.subheader(f"Winner: 👑{winner_name}👑")
 
 # 경기결과 그래프
 
-game_result = pd.read_csv('data/game_result.csv')
+game_result = pd.read_csv('game_result_2.csv')
 
 season_data = game_result[game_result['Season'] == selected_season]
 home_game = season_data[season_data['HomeTeam'] == winner_name]
@@ -166,7 +175,7 @@ referee_columns ={
 st.divider()
 st.subheader(f"[04].{selected_season}, Referee Tendencies")
 
-referee_data=pd.read_csv('data/Referee_data.csv')
+referee_data=pd.read_csv('Referee_data_2.csv')
 filtered_season = referee_data[referee_data['Season'] == selected_season]
 grouping = filtered_season.groupby(['Season','Referee'], as_index=False).mean()
 
