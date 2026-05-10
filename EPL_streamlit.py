@@ -4,8 +4,8 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 
-winner_team = pd.read_csv('winner_list.csv')
-play_df = pd.read_csv('preprocess_data.csv')
+winner_team = pd.read_csv('data/winner_list.csv')
+play_df = pd.read_csv('data/preprocess_data.csv')
 
 play_df['HSA'] = (play_df['HST'] / play_df['HS']) * 100   # 유효슈팅 / 전체 슈팅 -> 슛 정확도 (Home)
 play_df['HGSR'] = (play_df['FTHG'] / play_df['HST']) * 100  # 득점 / 유효 슈팅 -> 득점 성공률 (Home)
@@ -63,7 +63,7 @@ st.subheader(f"Winner: 👑{winner_name}👑")
 
 # 경기결과 그래프
 
-game_result = pd.read_csv('game_result.csv')
+game_result = pd.read_csv('data/game_result.csv')
 
 season_data = game_result[game_result['Season'] == selected_season]
 home_game = season_data[season_data['HomeTeam'] == winner_name]
@@ -175,7 +175,7 @@ referee_columns ={
 st.divider()
 st.subheader(f"[04].{selected_season}, Referee Tendencies")
 
-referee_data=pd.read_csv('Referee_data.csv')
+referee_data=pd.read_csv('data/Referee_data.csv')
 filtered_season = referee_data[referee_data['Season'] == selected_season]
 grouping = filtered_season.groupby(['Season','Referee'], as_index=False).mean()
 
