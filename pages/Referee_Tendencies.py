@@ -7,8 +7,8 @@ import plotly.express as px
 # 페이지 간 공통 데이터 공유 위한 캐싱
 @st.cache_data
 def load_data():
-    df = pd.read_csv('preprocess_data_2.csv')
-    df2 = pd.read_csv('winner_list_2.csv')
+    df = pd.read_csv('data/preprocess_data.csv')
+    df2 = pd.read_csv('data/winner_list.csv')
         
     df['HSA'] = (df['HST'] / df['HS']) * 100
     df['HGSR'] = (df['FTHG'] / df['HST']) * 100
@@ -36,7 +36,7 @@ referee_columns ={
 
 st.subheader(f"EPL, [{selected_season}] Referee Tendencies (AVG)")
 
-referee_data=pd.read_csv('Referee_data_2.csv')
+referee_data=pd.read_csv('data/Referee_data.csv')
 filtered_season = referee_data[referee_data['Season'] == selected_season]
 grouping = filtered_season.groupby(['Season','Referee'], as_index=False).mean()
 

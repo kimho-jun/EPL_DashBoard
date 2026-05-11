@@ -7,8 +7,8 @@ import plotly.express as px
 @st.cache_data
 def load_data():
     
-    df = pd.read_csv('preprocess_data_2.csv')
-    df2 = pd.read_csv('winner_list_2.csv')
+    df = pd.read_csv('data/preprocess_data.csv')
+    df2 = pd.read_csv('data/winner_list.csv')
 
     df['HSA'] = (df['HST'] / df['HS']) * 100    # 유효슈팅 / 전체 슈팅 -> 슛 정확도 
     df['HGSR'] = (df['FTHG'] / df['HST']) * 100  # 득점 / 유효 슈팅 -> 득점 성공률 
@@ -70,7 +70,7 @@ st.subheader(f"Winner: 👑{winner_name}👑")
 
 # 경기결과 그래프
 
-game_result = pd.read_csv('game_result_2.csv')
+game_result = pd.read_csv('data/game_result.csv')
 
 season_data = game_result[game_result['Season'] == selected_season]
 home_game = season_data[season_data['HomeTeam'] == winner_name]
