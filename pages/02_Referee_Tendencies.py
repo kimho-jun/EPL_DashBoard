@@ -32,7 +32,8 @@ referee_columns ={
     'TY' : 'Total Yellow Cards',
     'TR' : 'Total Red Cards'
 }
-    
+
+
 
 st.subheader(f"[{selected_season}] Referee Tendencies (AVG)")
 
