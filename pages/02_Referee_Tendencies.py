@@ -34,7 +34,7 @@ referee_columns ={
 }
     
 
-st.subheader(f"EPL, [{selected_season}] Referee Tendencies (AVG)")
+st.subheader(f"[{selected_season}] Referee Tendencies (AVG)")
 
 referee_data=pd.read_csv('data/Referee_data.csv')
 filtered_season = referee_data[referee_data['Season'] == selected_season]
